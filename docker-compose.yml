@@ -1,9 +1,5 @@
 version: "3.9"
 
-networks:
-  db:
-    driver: bridge
-
 services:
   mongo:
     image: prismagraphql/mongo-single-replica:5.0.3
@@ -12,12 +8,12 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ggwp
       MONGO_INITDB_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Q
     ports:
-      - "2192:27017"
+      - "27017:27017"
     volumes:
       - ./data/mongo:/data/db
     restart: always
-    networks:
-      - db
+    expose:
+      - "5432"
 
   mysql:
     image: mysql:latest
@@ -31,8 +27,6 @@ services:
       - "3192:3306"
     volumes:
       - ./data/mysql:/var/lib/mysql
-    networks:
-      - db
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -40,13 +34,11 @@ services:
     links:
       - mysql
     environment:
-      PMA_HOST: mysq
+      PMA_HOST: mysql
       UPLOAD_LIMIT: 512M
     restart: always
     ports:
       - 4192:80
-    networks:
-      - db
 
   redis:
     image: redis:7-alpine
@@ -57,5 +49,3 @@ services:
       - 6192:6379
     volumes:
       - ./data/redis:/data
-    networks:
-      - db
