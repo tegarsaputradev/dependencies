@@ -1,0 +1,61 @@
+version: "3.9"
+
+networks:
+  db:
+    driver: bridge
+
+services:
+  mongo:
+    image: prismagraphql/mongo-single-replica:5.0.3
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ggwp
+      MONGO_INITDB_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Q
+    ports:
+      - "2192:27017"
+    volumes:
+      - ./data/mongo:/data/db
+    restart: always
+    networks:
+      - db
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Q
+      MYSQL_USER: ggwp
+      MYSQL_PASSWORD: ggwp
+    restart: always
+    ports:
+      - "3192:3306"
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysq
+      UPLOAD_LIMIT: 512M
+    restart: always
+    ports:
+      - 4192:80
+    networks:
+      - db
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: always
+    command: redis-server --requirepass 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Q
+    ports:
+      - 6192:6379
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - db
