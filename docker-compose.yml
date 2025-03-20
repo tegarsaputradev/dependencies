@@ -1,25 +1,23 @@
 version: "3.9"
 
 services:
-  mongo:
+  mongodb:
     image: prismagraphql/mongo-single-replica:5.0.3
-    container_name: mongo
+    container_name: mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: ggwp
-      MONGO_INITDB_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Q
+      MONGO_INITDB_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Qhij
     ports:
       - "27017:27017"
     volumes:
       - ./data/mongo:/data/db
     restart: always
-    expose:
-      - "5432"
 
   mysql:
     image: mysql:latest
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Q
+      MYSQL_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Qklkjsd
       MYSQL_USER: ggwp
       MYSQL_PASSWORD: ggwp
     restart: always
@@ -44,8 +42,8 @@ services:
     image: redis:7-alpine
     container_name: redis
     restart: always
-    command: redis-server --requirepass 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Q
+    command: redis-server --requirepass 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Qsslkj323jk
     ports:
-      - 6192:6379
+      - 5192:6379
     volumes:
       - ./data/redis:/data
