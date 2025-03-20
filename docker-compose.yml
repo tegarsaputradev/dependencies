@@ -1,17 +1,17 @@
 version: "3.9"
 
 services:
-  mongodb:
-    image: prismagraphql/mongo-single-replica:5.0.3
-    container_name: mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ggwp
-      MONGO_INITDB_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Qhij
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./data/mongo:/data/db
-    restart: always
+  # mongodb:
+  #   image: prismagraphql/mongo-single-replica:5.0.3
+  #   container_name: mongodb
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: ggwp
+  #     MONGO_INITDB_ROOT_PASSWORD: 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Qhij
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - ./data/mongo:/data/db
+  #   restart: always
 
   mysql:
     image: mysql:latest
