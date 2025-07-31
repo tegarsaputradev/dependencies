@@ -63,8 +63,22 @@ services:
     image: redis:7-alpine
     container_name: redis
     restart: always
-    command: redis-server --requirepass 5nP0eh1Gis9697aGGWPLR8p16mglbFTzuOhsn8oz6P3Qsslkj323jk
+      #command: redis-server --requirepass ggwp
     ports:
-      - 5192:6379
+      - 6379:6379
     volumes:
       - ./data/redis:/data
+
+  localstack:
+    container_name: "s3-Localstack"
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    environment:
+      # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
+      - DEBUG=0
+      - PERSISTENCE=1
+    volumes:
+      - "./data/localstack:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
