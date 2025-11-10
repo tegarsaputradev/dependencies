@@ -34,6 +34,19 @@ services:
       timeout: 2s
       retries: 20
 
+  postgres:
+    image: postgres:15.5
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ggwp
+      POSTGRES_PASSWORD: ggwp
+      POSTGRES_DB: waconsole
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
   mysql:
     image: mysql:latest
     container_name: mysql
